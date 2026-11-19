@@ -13,6 +13,8 @@ jobs:
           channel: stable
       - name: Bootstrap Android/iOS project shells
         run: flutter create --platforms=android,ios .
+      - name: Remove generated default smoke test if present
+        run: rm -f test/widget_test.dart
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
