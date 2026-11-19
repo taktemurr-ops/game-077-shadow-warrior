@@ -72,6 +72,7 @@ class ShadowEngine {
           _clearStage();
           return true;
         }
+        break;
       case Skill.dash:
         if (!canDash) return false;
         final (dx, dy) = _delta(direction);
@@ -83,11 +84,13 @@ class ShadowEngine {
         hero.x += dx * 2; hero.y += dy * 2;
         energy -= 2;
         message = 'Shadow dash.';
+        break;
       case Skill.heal:
         if (!canHeal) return false;
         potions--;
         hero.hp = min(hero.maxHp, hero.hp + 30);
         message = 'Potion restores health.';
+        break;
     }
     _enemyTurn();
     return true;
