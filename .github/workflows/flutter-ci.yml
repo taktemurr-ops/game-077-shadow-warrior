@@ -1,0 +1,24 @@
+name: Flutter CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  analyze-test-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Bootstrap Android/iOS project shells
+        run: flutter create --platforms=android,ios .
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      - run: flutter build apk --debug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: game-077-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
